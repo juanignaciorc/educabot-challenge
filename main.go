@@ -6,7 +6,7 @@ import (
 
 	"educabot.com/bookshop/internal/adapters/handlers"
 	"educabot.com/bookshop/internal/core/services"
-	"educabot.com/bookshop/repositories"
+	"educabot.com/bookshop/internal/repositories/http"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,7 +17,7 @@ func main() {
 	}
 
 	// Inicializar el repositorio - Usando el repositorio HTTP para obtener datos reales
-	booksRepository := repositories.NewBooksRepository()
+	booksRepository := http.NewHTTPBooksRepository()
 
 	// Inicializar el servicio - Aquí el contexto se propagará correctamente
 	metricsService := services.NewMetricsService(booksRepository)

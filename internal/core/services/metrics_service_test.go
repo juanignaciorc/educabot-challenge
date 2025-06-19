@@ -95,3 +95,17 @@ func TestGetBooksWrittenByAuthor(t *testing.T) {
 
 	assert.Equal(t, uint(2), result)
 }
+
+// Caso de prueba para GetMeanUnitsSold con slice vacío
+func TestGetMeanUnitsSold_EmptySlice(t *testing.T) {
+	service := NewMetricsService(new(MockBooksRepository))
+	result := service.GetMeanUnitsSold([]domain.Book{})
+	assert.Equal(t, uint(0), result)
+}
+
+// Caso de prueba para GetCheapestBook con slice vacío
+func TestGetCheapestBook_EmptySlice(t *testing.T) {
+	service := NewMetricsService(new(MockBooksRepository))
+	result := service.GetCheapestBook([]domain.Book{})
+	assert.Equal(t, domain.Book{}, result)
+}
