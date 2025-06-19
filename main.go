@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"educabot.com/bookshop/handlers"
-	"educabot.com/bookshop/repositories/mockImpls"
-	"educabot.com/bookshop/services"
+	"educabot.com/bookshop/internal/adapters/handlers"
+	"educabot.com/bookshop/internal/core/services"
+	"educabot.com/bookshop/repositories"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,11 +16,11 @@ func main() {
 		log.Fatalf("Failed to set trusted proxies: %v", err)
 	}
 
-	// Inicializar el provider - Para una aplicación real, usa HTTPBooksProvider en lugar de MockBooksProvider
-	booksProvider := mockImpls.NewMockBooksProvider()
+	// Inicializar el repositorio - Usando el repositorio HTTP para obtener datos reales
+	booksRepository := repositories.NewBooksRepository()
 
 	// Inicializar el servicio - Aquí el contexto se propagará correctamente
-	metricsService := services.NewMetricsService(booksProvider)
+	metricsService := services.NewMetricsService(booksRepository)
 
 	// Inicializar el handler con el servicio
 	metricsHandler := handlers.NewGetMetrics(metricsService)
